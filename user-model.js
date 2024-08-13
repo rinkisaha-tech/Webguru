@@ -26,7 +26,7 @@ const userModel = new Schema({
     },
     delete_status: {
         type: Boolean,
-        default: false,
+        default: true,
         enum: [true, false]
     }
 }, { timestamps: true, versionKey: false });

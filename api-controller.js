@@ -35,14 +35,68 @@ addUser = async (req, res) => {
             })
         } catch (err) {
             res.send({
-                catch (err) {
-                res.send({
-                    "message": "Error",
+                 "message": "Error",
                     data: err
                 })
             }
-        })
+        
     }
-}
+
+
+    getSingleData = async (req, res) => {
+        try {
+            // console.log(req.params.id,'==req.params==')
+            let userSingleData = await userModel.findOne({_id:req.params.id});
+
+            res.send({
+                "message": "Data added successfully",
+                "data": userSingleData
+            })
+        } catch (err) {
+            res.send({
+                "message": "Error",
+                data: err
+            })
+        }
+    }
+    updateUser = async (req, res) => {
+        try {
+            let reqData = {
+                name: req.body.name,
+                phone: req.body.phone,
+                email: req.body.email
+            };
+
+            let updateData = await userModel.findByIdAndUpdate(req.body.id, reqData);
+            let userSingleData = await userModel.findOne({ _id: req.body.id });
+
+            res.send({
+                "message": "Data added successfully",
+                "data": userSingleData
+            })
+
+        } catch (err){
+            res.send({
+                "message": "Error",
+                data: err
+            })
+        }
+    }
+    deleteUser = async (req, res) => {
+        try {
+            let userSingleData = await userModel.findByIdAndDelete({ _id:req.params.id });
+
+            res.send({
+                "message": "Deleted successfully",
+                "data": userSingleData
+            })
+
+        } catch (err){
+            res.send({
+                "message": "Error",
+                data: err
+            })
+        }
+    }
 }
     module.exports = new apiController();
